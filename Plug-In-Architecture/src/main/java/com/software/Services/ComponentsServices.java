@@ -6,13 +6,9 @@ package com.software.Services;
 
 import com.software.Interfaces.IPlugin;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.DefaultListModel;
@@ -101,6 +97,7 @@ public class ComponentsServices {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
+            textPaneOutMessage.setText("Fallo al ejecutar el plug-in");
 
         }
 
