@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.software.plugin;
 
 import com.software.Interfaces.IPlugin;
@@ -21,10 +17,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 
-/**
- *
- * @author camm0
- */
+
 public class ExecutePlugin implements IPlugin {
 
     @Override

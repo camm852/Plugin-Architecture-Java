@@ -1,47 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.software.Views;
 
-import com.software.Controllers.ButtonController;
+import com.software.Controllers.IDEController;
+import com.software.Dto.JavaFileDto;
 import com.software.Entities.JavaFile;
-import com.software.Services.ComponentsServices;
-import com.software.Services.IDEServices;
+import com.software.Interfaces.IIDEController;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- *
- * @author camm0
- */
+
 public class Main extends javax.swing.JFrame {
     private JavaFile javaFile;
     
     private String jarSelected = "";
     
-    private ButtonController buttonController;
-    private ComponentsServices componentsServices;
+    
+    private final IIDEController _ideController;
     
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
-        buttonController = new ButtonController();
-        componentsServices = new ComponentsServices(ListComponents);
+        _ideController = new IDEController(ListPlugins);
         javaFile = new JavaFile();
-        
-        
-        /*addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                CleanPath();
-            }
-        });*/
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -49,9 +32,9 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelParent = new javax.swing.JPanel();
-        ButtonLoadComponent = new javax.swing.JButton();
+        ButtonLoadPlugin = new javax.swing.JButton();
         ButtonLoadFile = new javax.swing.JButton();
-        ButtonExecuteComponent = new javax.swing.JButton();
+        ButtonExecutePlugin = new javax.swing.JButton();
         LabelOutMessage = new javax.swing.JLabel();
         LabelFirstFile = new javax.swing.JLabel();
         LabelProcessedFile = new javax.swing.JLabel();
@@ -62,16 +45,16 @@ public class Main extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         TextPaneOutMessage = new javax.swing.JTextPane();
         jScrollPane4 = new javax.swing.JScrollPane();
-        ListComponents = new javax.swing.JList<>();
+        ListPlugins = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         PanelParent.setBackground(new java.awt.Color(255, 255, 255));
 
-        ButtonLoadComponent.setText("Cargar Componente");
-        ButtonLoadComponent.addActionListener(new java.awt.event.ActionListener() {
+        ButtonLoadPlugin.setText("Cargar Plugin");
+        ButtonLoadPlugin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonLoadComponentActionPerformed(evt);
+                ButtonLoadPluginActionPerformed(evt);
             }
         });
 
@@ -82,10 +65,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        ButtonExecuteComponent.setText("Ejecutar Componente");
-        ButtonExecuteComponent.addActionListener(new java.awt.event.ActionListener() {
+        ButtonExecutePlugin.setText("Ejecutar Plugin");
+        ButtonExecutePlugin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonExecuteComponentActionPerformed(evt);
+                ButtonExecutePluginActionPerformed(evt);
             }
         });
 
@@ -109,13 +92,13 @@ public class Main extends javax.swing.JFrame {
         TextPaneOutMessage.setFocusable(false);
         jScrollPane2.setViewportView(TextPaneOutMessage);
 
-        ListComponents.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        ListComponents.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        ListPlugins.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ListPlugins.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                ListComponentsValueChanged(evt);
+                ListPluginsValueChanged(evt);
             }
         });
-        jScrollPane4.setViewportView(ListComponents);
+        jScrollPane4.setViewportView(ListPlugins);
 
         javax.swing.GroupLayout PanelParentLayout = new javax.swing.GroupLayout(PanelParent);
         PanelParent.setLayout(PanelParentLayout);
@@ -128,8 +111,8 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(PanelParentLayout.createSequentialGroup()
                         .addGroup(PanelParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(LabelOutMessage)
-                            .addComponent(ButtonExecuteComponent, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-                            .addComponent(ButtonLoadComponent, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addComponent(ButtonExecutePlugin, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                            .addComponent(ButtonLoadPlugin, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                             .addComponent(jScrollPane4))
                         .addGap(36, 36, 36)
                         .addGroup(PanelParentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -158,11 +141,11 @@ public class Main extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelParentLayout.createSequentialGroup()
-                        .addComponent(ButtonLoadComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonLoadPlugin, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(ButtonExecuteComponent, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonExecutePlugin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(LabelOutMessage)))
                 .addGap(18, 18, 18)
@@ -191,17 +174,15 @@ public class Main extends javax.swing.JFrame {
             fileChooser.setFileFilter(filter);
             int seleccion = fileChooser.showOpenDialog(this);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
-                // Obtén el archivo seleccionado
                 javaFile.setJavaFile(fileChooser.getSelectedFile());
-                buttonController.LoadFile(javaFile.getJavaFile(), TextPaneFirstFile, TextPaneOutMessage);
+                _ideController.loadFile(new JavaFileDto(this.javaFile.getJavaFile()), TextPaneFirstFile, TextPaneOutMessage);
             }else{
                 this.TextPaneOutMessage.setText("Seleccione un archivo correcto");
             }
-            
         }
     }//GEN-LAST:event_ButtonLoadFileActionPerformed
 
-    private void ButtonLoadComponentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoadComponentActionPerformed
+    private void ButtonLoadPluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLoadPluginActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Archivos JAR", "jar"));
@@ -209,52 +190,28 @@ public class Main extends javax.swing.JFrame {
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            File pathJar = buttonController.LoadComponent(selectedFile, TextPaneOutMessage, ListComponents);
-            componentsServices.addComponent(pathJar, ListComponents);
+            _ideController.loadPlugin(selectedFile, TextPaneOutMessage, ListPlugins);
         }
-    }//GEN-LAST:event_ButtonLoadComponentActionPerformed
+    }//GEN-LAST:event_ButtonLoadPluginActionPerformed
 
-    private void ListComponentsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ListComponentsValueChanged
+    private void ListPluginsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ListPluginsValueChanged
         if (!evt.getValueIsAdjusting()) {
-            JList<String> listComponents = (JList<String>) evt.getSource();
-            String selectedComponent = listComponents.getSelectedValue();
-            TextPaneOutMessage.setText(selectedComponent);
-            jarSelected = selectedComponent;
+            JList<String> _pluginList = (JList<String>) evt.getSource();
+            String selectedPlugin = _pluginList.getSelectedValue();
+            TextPaneOutMessage.setText("Se ha seleccionado el plugin: "+selectedPlugin);
+            jarSelected = selectedPlugin;
         }
-    }//GEN-LAST:event_ListComponentsValueChanged
+    }//GEN-LAST:event_ListPluginsValueChanged
 
-    private void ButtonExecuteComponentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExecuteComponentActionPerformed
-        if(javaFile.getJavaFile() != null){
-            componentsServices.executeComponent( jarSelected, javaFile.getJavaFile(), TextPaneProcessedFile, TextPaneOutMessage);
+    private void ButtonExecutePluginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExecutePluginActionPerformed
+        if(this.javaFile.getJavaFile() != null){
+            _ideController.executePlugin(jarSelected, new JavaFileDto(this.javaFile.getJavaFile()), TextPaneProcessedFile, TextPaneOutMessage);
         }else{
             TextPaneOutMessage.setText("Elije el archivo inicial");
         }
-    }//GEN-LAST:event_ButtonExecuteComponentActionPerformed
+    }//GEN-LAST:event_ButtonExecutePluginActionPerformed
 
-    
-    private void CleanPath(){
-        // Directorio que deseas vaciar
-        String directorio = "../Plugins/";
-        
-        // Crea una instancia de File para el directorio
-        File carpeta = new File(directorio);
-        
-        // Verifica si el directorio existe
-        if (carpeta.exists() && carpeta.isDirectory()) {
-            // Obtiene la lista de archivos en el directorio
-            File[] archivos = carpeta.listFiles();
-            
-            // Elimina cada archivo en el directorio
-            for (File archivo : archivos) {
-                archivo.delete();
-            }
-            
-            System.out.println("Archivos eliminados correctamente.");
-        } else {
-            System.out.println("El directorio no existe o no es válido.");
-        }
-    }
-    
+   
     /**
      * @param args the command line arguments
      */
@@ -291,13 +248,13 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonExecuteComponent;
-    private javax.swing.JButton ButtonLoadComponent;
+    private javax.swing.JButton ButtonExecutePlugin;
     private javax.swing.JButton ButtonLoadFile;
+    private javax.swing.JButton ButtonLoadPlugin;
     private javax.swing.JLabel LabelFirstFile;
     private javax.swing.JLabel LabelOutMessage;
     private javax.swing.JLabel LabelProcessedFile;
-    private javax.swing.JList<String> ListComponents;
+    private javax.swing.JList<String> ListPlugins;
     private javax.swing.JPanel PanelParent;
     private javax.swing.JTextPane TextPaneFirstFile;
     private javax.swing.JTextPane TextPaneOutMessage;

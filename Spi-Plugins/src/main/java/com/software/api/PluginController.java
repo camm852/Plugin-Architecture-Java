@@ -61,7 +61,7 @@ public class PluginController implements IPluginController{
      *
      * @param pluginList The JList to be refreshed with the updated plugin list.
      */
-    private final void refreshPluginList(JList pluginList) {
+    private void refreshPluginList(JList pluginList) {
         DefaultListModel<String> model = new DefaultListModel<>();
 
         for (Map.Entry<String, File> entry : plugins.entrySet()) {
@@ -115,10 +115,10 @@ public class PluginController implements IPluginController{
         try {
             URLClassLoader child = new URLClassLoader(
                     new URL[]{jarFile.toURI().toURL()},
-                    PluginController.class.getClassLoader()
+                    this.getClass().getClassLoader()
             );
             Class classToLoad = Class.forName("com.software.plugin.ExecutePlugin", true, child);
-
+            
             Method method = classToLoad.getDeclaredMethod("executePlugin", File.class, JTextPane.class, JTextPane.class);
 
             System.out.println(jarFile.toPath().toString());

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.software.plugin;
 
 import com.software.Interfaces.IPlugin;
@@ -14,10 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
-/**
- *
- * @author camm0
- */
+
 public class ExecutePlugin extends JFrame implements IPlugin {
 
 

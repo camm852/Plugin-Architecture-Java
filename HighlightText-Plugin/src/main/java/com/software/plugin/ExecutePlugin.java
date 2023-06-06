@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.software.plugin;
 
 import com.software.Interfaces.IPlugin;
@@ -14,15 +10,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-/**
- *
- * @author camm0
- */
+
 public class ExecutePlugin implements IPlugin{
     
     @Override
     public void executePlugin(File fileJava, JTextPane textPaneProcessedFile, JTextPane textPaneOutMessage){
-        
+       textPaneProcessedFile.setText("");
         try (BufferedReader reader = new BufferedReader(new FileReader(fileJava))) {
             StringBuilder contenido = new StringBuilder();
             String linea;
@@ -44,12 +37,12 @@ public class ExecutePlugin implements IPlugin{
         }
 
         StyleContext styleContext = StyleContext.getDefaultStyleContext();
-        AttributeSet keywordStyle = styleContext.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, Color.BLUE);
+        AttributeSet keywordStyle = styleContext.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, Color.ORANGE);
 
         String[] keywords = {
                 "import", "public", "private", "static", "void", "class", "implements", "package",
                 "int", "String", "boolean", "float", "long", "double", "while", "for", "switch", "case", "break",
-                "continue", "new", "try", "catch"
+                "continue", "new", "try", "catch", "return"
         };
         
 

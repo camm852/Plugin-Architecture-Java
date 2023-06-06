@@ -50,8 +50,8 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="LabelOutMessage" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="ButtonExecuteComponent" pref="276" max="32767" attributes="0"/>
-                              <Component id="ButtonLoadComponent" pref="276" max="32767" attributes="0"/>
+                              <Component id="ButtonExecutePlugin" pref="276" max="32767" attributes="0"/>
+                              <Component id="ButtonLoadPlugin" pref="276" max="32767" attributes="0"/>
                               <Component id="jScrollPane4" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
@@ -89,11 +89,11 @@
                           <Component id="jScrollPane1" min="-2" pref="239" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="ButtonLoadComponent" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Component id="ButtonLoadPlugin" min="-2" pref="31" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="jScrollPane4" min="-2" pref="365" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                          <Component id="ButtonExecuteComponent" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="ButtonExecutePlugin" min="-2" pref="32" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                           <Component id="LabelOutMessage" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -106,12 +106,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="ButtonLoadComponent">
+        <Component class="javax.swing.JButton" name="ButtonLoadPlugin">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cargar Componente"/>
+            <Property name="text" type="java.lang.String" value="Cargar Plugin"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonLoadComponentActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonLoadPluginActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ButtonLoadFile">
@@ -122,12 +122,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonLoadFileActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="ButtonExecuteComponent">
+        <Component class="javax.swing.JButton" name="ButtonExecutePlugin">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ejecutar Componente"/>
+            <Property name="text" type="java.lang.String" value="Ejecutar Plugin"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonExecuteComponentActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonExecutePluginActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="LabelOutMessage">
@@ -201,7 +201,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JList" name="ListComponents">
+            <Component class="javax.swing.JList" name="ListPlugins">
               <Properties>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                   <StringArray count="0"/>
@@ -209,7 +209,7 @@
                 <Property name="selectionMode" type="int" value="0"/>
               </Properties>
               <Events>
-                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="ListComponentsValueChanged"/>
+                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="ListPluginsValueChanged"/>
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

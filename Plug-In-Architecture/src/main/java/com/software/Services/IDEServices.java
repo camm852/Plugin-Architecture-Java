@@ -14,22 +14,38 @@ import java.util.logging.Logger;
 import javax.swing.JList;
 import javax.swing.JTextPane;
 
+/**
+ * The IDEServices class provides various services for an IDE (Integrated Development Environment).
+ */
 public class IDEServices {
-    
+
     private static IDEServices ideServices = null;
     private final IPluginController _pluginController;
-    
-    
-    private IDEServices(){
+
+    /**
+     * Private constructor for IDEServices.
+     */
+    private IDEServices() {
         _pluginController = new PluginController();
     }
-    
-    private IDEServices(JList pluginList){
+
+    /**
+     * Private constructor for IDEServices that initializes it with a given plugin list.
+     *
+     * @param pluginList The JList representing the plugin list.
+     */
+    private IDEServices(JList pluginList) {
         _pluginController = new PluginController(pluginList);
     }
-    
-    
-    public void writeFileToJTextPane(BufferedReader buffer, JTextPane textPaneFile, JTextPane textPaneOutMessage){
+
+    /**
+     * Writes the content of a BufferedReader to a JTextPane.
+     *
+     * @param buffer            The BufferedReader containing the file content.
+     * @param textPaneFile      The JTextPane to write the file content to.
+     * @param textPaneOutMessage The JTextPane for displaying error messages.
+     */
+    public void writeFileToJTextPane(BufferedReader buffer, JTextPane textPaneFile, JTextPane textPaneOutMessage) {
         StringBuilder contenido = new StringBuilder();
         String linea;
         try {
@@ -40,11 +56,18 @@ public class IDEServices {
 
         } catch (IOException ex) {
             Logger.getLogger(IDEServices.class.getName()).log(Level.SEVERE, null, ex);
-            textPaneOutMessage.setText("Error al cargar la informacion: " + ex.getMessage());
+            textPaneOutMessage.setText("Error al cargar la información: " + ex.getMessage());
         }
     }
-    
-    private boolean copyJarToClassPath(String destinationFolderPath, File pluginJar){
+
+    /**
+     * Copies a plugin JAR file to the classpath.
+     *
+     * @param destinationFolderPath The destination folder path where the JAR file will be copied.
+     * @param pluginJar             The plugin JAR file to be copied.
+     * @return True if the copy operation was successful, false otherwise.
+     */
+    private boolean copyJarToClassPath(String destinationFolderPath, File pluginJar) {
         Path sourcePath = pluginJar.toPath();
         Path destinationPath = Path.of(destinationFolderPath, pluginJar.getName());
         try {
@@ -55,37 +78,60 @@ public class IDEServices {
             return false;
         }
     }
-    
-    public void loadPluginToIDE(File pluginJar, JTextPane textPaneOutMessage, JList pluginList){
-        String destinationFolderPath = "../Plugins/"; // Ruta de la carpeta de destino
-        if(!copyJarToClassPath(destinationFolderPath, pluginJar)){
+
+    /**
+     * Loads a plugin JAR file into the IDE.
+     *
+     * @param pluginJar         The plugin JAR file to be loaded.
+     * @param textPaneOutMessage The JTextPane for displaying status or error messages.
+     * @param pluginList        The JList representing the plugin list to be refreshed.
+     */
+    public void loadPluginToIDE(File pluginJar, JTextPane textPaneOutMessage, JList pluginList) {
+        String destinationFolderPath = "../Plugins/"; // Destination folder path
+        if (!copyJarToClassPath(destinationFolderPath, pluginJar)) {
             textPaneOutMessage.setText("Fallo al cargar el plugin");
             return;
         }
-        
-        _pluginController.addPlugin(new File(destinationFolderPath+pluginJar.getName()), pluginList);
-        textPaneOutMessage.setText("Plugin Cargado correctamente");
+
+        _pluginController.addPlugin(new File(destinationFolderPath + pluginJar.getName()), pluginList);
+        textPaneOutMessage.setText("Plugin cargado correctamente");
     }
-    
-    public void executePlugin(String pluginName, JavaFileDto fileJava, JTextPane textPaneProcessedFile, JTextPane textPaneOutMessage){
+
+    /**
+     * Executes a plugin with the specified plugin name, Java file, and JTextPanes for displaying processed file and output messages.
+     *
+     * @param pluginName           The name of the plugin to execute.
+     * @param fileJava             The Java file to be processed by the plugin.
+     * @param textPaneProcessedFile The JTextPane for displaying the processed file.
+     * @param textPaneOutMessage   The JTextPane for displaying the output message.
+     */
+    public void executePlugin(String pluginName, JavaFileDto fileJava, JTextPane textPaneProcessedFile, JTextPane textPaneOutMessage) {
         _pluginController.executePlugin(pluginName, fileJava.getFile(), textPaneProcessedFile, textPaneOutMessage);
     }
-    
-    
-    
-    public static IDEServices getInstance(){
-        if(ideServices == null) {
+
+    /**
+     * Gets the instance of IDEServices (Singleton pattern).
+     *
+     * @return The instance of IDEServices.
+     */
+    public static IDEServices getInstance() {
+        if (ideServices == null) {
             ideServices = new IDEServices();
         }
         return ideServices;
     }
-    
-    public static IDEServices getInstance(JList pluginList){
-        if(ideServices == null) {
+
+    /**
+     * Gets the instance of IDEServices (Singleton pattern) with a given plugin list.
+     *
+     * @param pluginList The JList representing the plugin list.
+     * @return The instance of IDEServices.
+     */
+    public static IDEServices getInstance(JList pluginList) {
+        if (ideServices == null) {
             ideServices = new IDEServices(pluginList);
         }
         return ideServices;
     }
-        
+
 }
-    

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.software.plugin;
 
 import com.software.Interfaces.IPlugin;
@@ -16,10 +12,6 @@ import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyledDocument;
 
-/**
- *
- * @author camm0
- */
 public class ExecutePlugin implements IPlugin {
    
 
