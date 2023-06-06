@@ -1,6 +1,7 @@
 package com.software.api;
 
 import com.software.Interfaces.IPlugin;
+import com.software.Interfaces.IPluginController;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -16,19 +17,13 @@ import javax.swing.JTextPane;
 /**
  * The PluginController class manages the loading and execution of plugins.
  */
-public class PluginController {
+public class PluginController implements IPluginController{
 
     /**
      * Map to store the loaded plugins. The key is the plugin's file name, and the value is the corresponding File object.
      */
     private static Map<String, File> plugins = new HashMap<>();
 
-    
-    /**
-     * Object for singleton pattern
-     */
-    private static PluginController pluginController = null;
-    
     
     /**
      * The path where the plugins are located.
@@ -38,16 +33,16 @@ public class PluginController {
     /**
      * Default constructor for PluginController.
      */
-    private PluginController() {
+    public PluginController() {
 
     }
 
     /**
      * Constructor for PluginController that loads plugins from the specified path and refreshes the plugin list in the given JList.
      *
-     * @param listComponents The JList to be refreshed with the loaded plugin list.
+     * @param pluginList The JList to be refreshed with the loaded plugin list.
      */
-    private PluginController(JList listComponents) {
+    public PluginController(JList pluginList) {
         File folder = new File(pathPlugins);
         File[] files = folder.listFiles();
 
@@ -58,22 +53,22 @@ public class PluginController {
                 }
             }
         }
-        refreshPluginList(listComponents);
+        refreshPluginList(pluginList);
     }
 
     /**
      * Refreshes the plugin list in the given JList with the names of the loaded plugins.
      *
-     * @param listComponents The JList to be refreshed with the updated plugin list.
+     * @param pluginList The JList to be refreshed with the updated plugin list.
      */
-    private static final void refreshPluginList(JList listComponents) {
+    private final void refreshPluginList(JList pluginList) {
         DefaultListModel<String> model = new DefaultListModel<>();
 
         for (Map.Entry<String, File> entry : plugins.entrySet()) {
             model.addElement(entry.getKey());
         }
 
-        listComponents.setModel(model);
+        pluginList.setModel(model);
     }
 
     /**
@@ -82,7 +77,7 @@ public class PluginController {
      * @param pluginName The name of the plugin to find.
      * @return The File object representing the plugin JAR file, or null if not found.
      */
-    private static File findPluginFromName(String pluginName) {
+    private  File findPluginFromName(String pluginName) {
 
         File pluginJar = null;
 
@@ -98,11 +93,12 @@ public class PluginController {
      * Adds a plugin to the map of loaded plugins and refreshes the plugin list in the given JList.
      *
      * @param pluginJar       The File object representing the plugin JAR file.
-     * @param listComponents The JList to be refreshed with the updated plugin list.
+     * @param pluginList The JList to be refreshed with the updated plugin list.
      */
-    public static void addPlugin(File pluginJar, JList listComponents) {
+    @Override
+    public void addPlugin(File pluginJar, JList pluginList) {
         plugins.put(pluginJar.getName(), pluginJar);
-        refreshPluginList(listComponents);
+        refreshPluginList(pluginList);
     }
     
     /**
@@ -113,7 +109,8 @@ public class PluginController {
      * @param textPaneProcessedFile The JTextPane for displaying the processed file.
      * @param textPaneOutMessage   The JTextPane for displaying the output message.
      */
-    public static void executePlugin(String pluginName, File fileJava, JTextPane textPaneProcessedFile, JTextPane textPaneOutMessage) {
+    @Override
+    public void executePlugin(String pluginName, File fileJava, JTextPane textPaneProcessedFile, JTextPane textPaneOutMessage) {
         File jarFile = findPluginFromName(pluginName);
         try {
             URLClassLoader child = new URLClassLoader(
@@ -137,4 +134,5 @@ public class PluginController {
 
         }
     }
+    
 }
