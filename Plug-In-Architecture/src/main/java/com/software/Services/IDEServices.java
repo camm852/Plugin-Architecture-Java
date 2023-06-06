@@ -48,9 +48,11 @@ public class IDEServices {
     public void writeFileToJTextPane(BufferedReader buffer, JTextPane textPaneFile, JTextPane textPaneOutMessage) {
         StringBuilder contenido = new StringBuilder();
         String linea;
+        int counterLine = 1;
         try {
             while ((linea = buffer.readLine()) != null) {
-                contenido.append(linea).append("\n");
+                contenido.append(counterLine).append(" ").append(linea).append("\n");
+                counterLine++;
             }
             textPaneFile.setText(contenido.toString());
 
