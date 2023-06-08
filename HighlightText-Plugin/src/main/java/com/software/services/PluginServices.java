@@ -30,7 +30,7 @@ public class PluginServices {
         }
 
         StyleContext styleContext = StyleContext.getDefaultStyleContext();
-        AttributeSet keywordStyle = styleContext.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, Color.ORANGE);
+        AttributeSet keywordStyle = styleContext.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, new Color(0x1EAEFF));
 
         String[] keywords = {
                 "import", "public", "private", "static", "void", "class", "implements", "package",

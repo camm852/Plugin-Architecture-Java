@@ -28,5 +28,6 @@ public class PluginServices{
         }
 
         textPaneProcessedFile.setText(result.toString());
+        textPaneOutMessage.setText("Plugin ejecutado correctamente");
     }
 }

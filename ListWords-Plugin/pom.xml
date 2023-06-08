@@ -7,8 +7,8 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>com.mycompany</groupId>
-            <artifactId>Spi-Plugins</artifactId>
+            <groupId>com.iplugin</groupId>
+            <artifactId>IPlugin</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>

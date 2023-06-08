@@ -26,13 +26,14 @@ public class PluginServices {
                 String text = word + " (" + count + ")\n";
 
                 doc.insertString(doc.getLength(), text, style);
+                textPaneOutMessage.setText("Palabras contadas correctamente");
             }
         } catch (IOException | BadLocationException e) {
             textPaneOutMessage.setText("Fallo al contar las palabras");
         }
     }
     
-     private static String readFile(File fileJava) throws IOException {
+    private static String readFile(File fileJava) throws IOException {
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileJava))) {
             String line;

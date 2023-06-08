@@ -1,6 +1,6 @@
 package com.software.plugin;
 
-import com.software.Interfaces.IPlugin;
+import com.iplugin.interfaces.IPlugin;
 import com.software.services.PluginServices;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +17,7 @@ public class ExecutePlugin implements IPlugin {
     public void executePlugin(File fileJava, JTextPane textPaneProcessedFile, JTextPane textPaneOutMessage) {
         textPaneProcessedFile.setText("");
         try {
-            List<String> listWords = PluginServices.ListWords(fileJava);
+            List<String> listWords = PluginServices.listWords(fileJava);
             PluginServices.writeContentToTextPane(textPaneProcessedFile, textPaneOutMessage, listWords);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ExecutePlugin.class.getName()).log(Level.SEVERE, null, ex);

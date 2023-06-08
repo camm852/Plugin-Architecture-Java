@@ -27,7 +27,7 @@ public class PluginServices {
      * @return A list of unique words.
      * @throws FileNotFoundException If the specified Java file is not found.
      */
-    public static List<String> ListWords(File fileJava) throws FileNotFoundException {
+    public static List<String> listWords(File fileJava) throws FileNotFoundException {
         Scanner scanner = new Scanner(fileJava);
 
         Set<String> uniqueWords = new HashSet<>();

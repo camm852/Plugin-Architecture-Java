@@ -1,6 +1,6 @@
 package com.software.plugin;
 
-import com.software.Interfaces.IPlugin;
+import com.iplugin.interfaces.IPlugin;
 import com.software.services.PluginServices;
 import java.awt.BorderLayout;
 import java.io.File;
