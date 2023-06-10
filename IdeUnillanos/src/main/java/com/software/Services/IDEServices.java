@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Map;
 import java.util.logging.Level;
@@ -77,7 +78,7 @@ public class IDEServices {
         }
         
         Path sourcePath = pluginJar.toPath();
-        Path destinationPath = Path.of(destinationFolderPath, pluginJar.getName());
+        Path destinationPath = Paths.get(destinationFolderPath, pluginJar.getName());
         try {
             Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
             return true;
@@ -86,7 +87,7 @@ public class IDEServices {
             return false;
         }
     }
-
+    
     /**
      * Loads a plugin JAR file into the IDE.
      *
@@ -96,6 +97,10 @@ public class IDEServices {
      * @param pluginList        The JList representing the plugin list to be refreshed.
      */
     public void loadPluginToIDE(String destinationFolderPath,File pluginJar, JTextPane textPaneOutMessage, JList pluginList) {
+        if(!_pluginController.isValidPlugin(pluginJar)){
+            textPaneOutMessage.setText("El plugin no es compatible o hubo un fallo al cargarlo");
+            return;
+        }
         if (!copyJarToClassPath(destinationFolderPath, pluginJar)) {
             textPaneOutMessage.setText("Fallo al cargar el plugin");
             return;
@@ -103,7 +108,7 @@ public class IDEServices {
         if(_pluginController.addPlugin(new File(destinationFolderPath + pluginJar.getName()), pluginList)){
             textPaneOutMessage.setText("Plugin cargado correctamente");
         }else{
-            textPaneOutMessage.setText("El plugin no es compatible o hubo un fallo al cargarlo");
+            textPaneOutMessage.setText("Fallo al cargar el plugin");
         }
     }
     

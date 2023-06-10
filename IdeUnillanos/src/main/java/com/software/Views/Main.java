@@ -105,6 +105,7 @@ public class Main extends javax.swing.JFrame {
         CloseProgram.setToolTipText("");
         CloseProgram.setAlignmentX(0.5F);
         CloseProgram.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        CloseProgram.setDoubleBuffered(true);
         CloseProgram.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 CloseProgramMouseClicked(evt);

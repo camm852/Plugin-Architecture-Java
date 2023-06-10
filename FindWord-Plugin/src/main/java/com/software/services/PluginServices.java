@@ -26,8 +26,12 @@ public class PluginServices{
             System.out.println(e);
             textPaneOutMessage.setText("Fallo al buscar la palabra");
         }
+        if(result.toString().length() > 0){
+            textPaneProcessedFile.setText(result.toString());
+        }else{
+            textPaneProcessedFile.setText("No se encontro coincidencias");
 
-        textPaneProcessedFile.setText(result.toString());
+        }
         textPaneOutMessage.setText("Plugin ejecutado correctamente");
     }
 }

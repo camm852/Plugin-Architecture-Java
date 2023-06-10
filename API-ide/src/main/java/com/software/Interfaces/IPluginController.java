@@ -8,6 +8,7 @@ import javax.swing.JTextPane;
 
 public interface IPluginController {
     boolean addPlugin(File pluginJar, JList listComponents);
+    boolean isValidPlugin(File pluginJar);
     void setPluginList(Map<String, File> pluginList);
     void executePlugin(String pluginName, File fileJava, JTextPane textPaneProcessedFile, JTextPane textPaneOutMessage);
 }

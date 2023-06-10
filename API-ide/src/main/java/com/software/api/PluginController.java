@@ -10,8 +10,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JTextPane;
@@ -25,7 +23,7 @@ public class PluginController implements IPluginController{
     /**
      * Map to store the loaded plugins. The key is the plugin's file name, and the value is the corresponding File object.
      */
-    private static Map<String, File> plugins = new HashMap<>();
+    private Map<String, File> plugins = new HashMap<>();
 
     
     /**
@@ -98,22 +96,6 @@ public class PluginController implements IPluginController{
                     this.getClass().getClassLoader()
             );
 
-            // Verificar si el JAR contiene el paquete y la clase
-            Class<?> classToLoad;
-            try {
-                classToLoad = Class.forName("com.software.plugin.ExecutePlugin", true, child);
-            } catch (ClassNotFoundException e) {
-                System.out.println("La clase no se encontró en el JAR.");
-                return false;
-            }
-
-            // Verificar si la clase implementa la interfaz
-            Class<?> interfaz = IPlugin.class;
-            if (!interfaz.isAssignableFrom(classToLoad)) {
-                System.out.println("La clase no implementa la interfaz.");
-                return false;
-            }
-
             // Si todo es exitoso, realizar las operaciones adicionales
             plugins.put(pluginJar.getName(), pluginJar);
             refreshPluginList(pluginList);
@@ -164,9 +146,56 @@ public class PluginController implements IPluginController{
         }
     }
 
+    
+    /**
+     * Set map plugins list
+     * @param pluginList 
+     */
     @Override
     public void setPluginList(Map<String, File> pluginList) {
         this.plugins = pluginList;
+    }
+
+    
+    /**
+     * Verify if a plugin is a plugin.
+     *
+     * @param pluginJar       The File object representing the plugin JAR file.
+     * @return treu if is whatever false if not is.
+     */
+    @Override
+    public boolean isValidPlugin(File pluginJar) {
+        try {
+            URLClassLoader child = new URLClassLoader(
+                    new URL[]{pluginJar.toURI().toURL()},
+                    this.getClass().getClassLoader()
+            );
+
+            // Verificar si el JAR contiene el paquete y la clase
+            Class<?> classToLoad;
+            try {
+                classToLoad = Class.forName("com.software.plugin.ExecutePlugin", true, child);
+            } catch (ClassNotFoundException e) {
+                System.out.println("La clase no se encontró en el JAR.");
+                return false;
+            }
+
+            // Verificar si la clase implementa la interfaz
+            Class<?> interfaz = IPlugin.class;
+            if (!interfaz.isAssignableFrom(classToLoad)) {
+                System.out.println("La clase no implementa la interfaz.");
+                return false;
+            }
+            return true;
+        } catch (MalformedURLException e) {
+            System.out.println("URL inválida al cargar el JAR.");
+        } catch (SecurityException e) {
+            System.out.println("Error de seguridad al cargar el JAR.");
+        } catch (Exception e) {
+            System.out.println("Otro error al cargar el JAR.");
+        }
+
+        return false; // Devolver false en caso de cualquier error
     }
     
 }

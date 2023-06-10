@@ -7,6 +7,13 @@ import java.util.Map;
 
 public class PluginsRepository implements IPluginsRepository {
 
+    /**
+     * Find plugins already loaded in a folder
+     * @param pathPlugins
+     * @return Map that contain plugins prev loaded
+     */
+    
+    
     @Override
     public Map<String, File> getLoadedPlugins(String pathPlugins) {
         
